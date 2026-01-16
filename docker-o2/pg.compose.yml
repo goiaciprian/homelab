@@ -1,0 +1,12 @@
+services:
+  database:
+    image: postgres:latest
+    restart: unless-stopped
+    container_name: instance-o1
+    environment:
+      POSTGRES_USER: ${PG_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${PG_POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - /root/volumes/internal_pg:/var/lib/postgresql/data

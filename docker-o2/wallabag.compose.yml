@@ -1,0 +1,23 @@
+services:
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+  wallabag:
+    image: wallabag/wallabag:latest
+    container_name: wallabag-instance-o1
+    restart: unless-stopped
+    depends_on:
+      - redis
+    ports:
+      - "8083:80"
+    volumes:
+      - wallabagimages:/var/www/wallabag/web/assets/images
+    env_file:
+      - wallabag.env
+
+volumes:
+  redis-data: {}
+  wallabagimages: {}

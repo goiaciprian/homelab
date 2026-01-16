@@ -1,0 +1,13 @@
+services:
+  instance:
+    image: ghcr.io/pansalut/koffan:latest
+    ports:
+      - 3000:80
+    volumes:
+      - koffan-data:/data
+    environment:
+      APP_ENV: "production"
+      DISABLE_AUTH: "true"
+
+volumes:
+  koffan-data:

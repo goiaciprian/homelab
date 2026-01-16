@@ -1,0 +1,23 @@
+ervices:
+  freshrss-instance-o1:
+    image: freshrss/freshrss:latest
+    container_name: freshrss-instance-o1
+    restart: unless-stopped
+    volumes:
+      - data:/var/www/FreshRSS/data
+      - extensions:/var/www/FreshRSS/extensions
+    ports:
+      - 8084:80
+    environment:
+      TZ: Europe/Bucharest
+      CRON_MIN: "*/7"
+      TRUSTED_PROXY: 192.168.100.1/24
+      OIDC_ENABLED: 1
+      OIDC_PROVIDER_METADATA_URL: ${FRESH_OIDC_PROVIDER_METADATA_URL}
+      OIDC_CLIENT_ID: ${FRESH_OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${FRESH_OIDC_CLIENT_SECRET}
+      OIDC_X_FORWARDED_HEADERS: ${FRESH_OIDC_X_FORWARDED_HEADERS}
+      OIDC_SCOPES: openid email profile
+volumes:
+  data:
+  extensions:

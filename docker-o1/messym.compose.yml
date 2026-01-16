@@ -1,0 +1,21 @@
+services:
+  messym:
+    image: registry.labs.cipriang-software.work/messym:latest
+    container_name: messy_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    logging:
+      driver: loki:latest
+      options:
+        loki-url: "http://192.168.100.98:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
+    environment:
+      - DATABASE_URL=${MESSYM_DOCKER_URL}
+      - NEXT_PUBLIC_VAPID_PUBLIC_KEY=${MESSYM_NEXT_PUBLIC_VAPID_PUBLIC_KEY}
+      - VAPID_PRIVATE_KEY=${MEESYM_VAPID_PRIVATE_KEY}
+      - VAPID_EMAIL=${MESSYM_VAPID_EMAIL}

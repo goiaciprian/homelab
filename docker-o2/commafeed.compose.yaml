@@ -1,0 +1,15 @@
+services:
+  commafeed-instance-o1:
+    image: athou/commafeed:latest-postgresql
+    #restart: unless-stopped
+    environment:
+      - QUARKUS_DATASOURCE_JDBC_URL=${COMMAF_QUARKUS_DATASOURCE_JDBC_URL}
+      - QUARKUS_DATASOURCE_USERNAME=${COMMAF_QUARKUS_DATASOURCE_USERNAME}
+      - QUARKUS_DATASOURCE_PASSWORD=${COMMAF_QUARKUS_DATASOURCE_PASSWORD}
+      - COMMAFEED_IMAGE_PROXY_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    ports:
+      - 8082:8082

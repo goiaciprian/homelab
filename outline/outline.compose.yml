@@ -1,0 +1,55 @@
+services:
+  outline:
+    image: docker.getoutline.com/outlinewiki/outline:latest
+    container_name: main
+    env_file: stack.env
+    restart: unless-stopped
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - storage-data:/var/lib/outline/data
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    expose:
+      - "6379"
+    volumes:
+      - ./redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+
+  # https-portal:
+  #   image: steveltn/https-portal
+  #   container_name: portal
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   links:
+  #     - outline
+  #   restart: always
+  #   volumes:
+  #     - https-portal-data:/var/lib/https-portal
+  #   healthcheck:
+  #     test: ["CMD", "service", "nginx", "status"]
+  #     interval: 30s
+  #     timeout: 20s
+  #     retries: 3
+  #   environment:
+  #     DOMAINS: 'outline.srv-lab.work -> http://outline:3000'
+  #     STAGE: 'production'
+  #     WEBSOCKET: 'true'
+  #     CLIENT_MAX_BODY_SIZE: '0'
+
+volumes:
+  https-portal-data:
+  storage-data:

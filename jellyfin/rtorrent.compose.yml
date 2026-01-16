@@ -1,0 +1,25 @@
+services:
+  flood:
+    image: jesec/flood
+    restart: unless-stopped
+    command: --port 3000 --allowedpath /config/.local/share/rtorrent/download
+    user: 0:1000
+    environment:
+      HOME: /config
+      FLOOD_OPTION_AUTH: none
+      FLOOD_OPTION_RTSOCKET: /config/.local/share/rtorrent/rtorrent.sock
+    volumes:
+      - /root/torrent/config/:/config
+    ports:
+      - "3000:3000"
+
+  rtorrent:
+    image: jesec/rtorrent
+    restart: unless-stopped
+    user: 0:1000
+    environment:
+      HOME: /config
+    volumes:
+      - /root/torrent/config/:/config
+    ports:
+      - 50000:50000

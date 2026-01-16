@@ -1,0 +1,14 @@
+services:
+  checkmk:
+    container_name: checkmk-o1
+    image: checkmk/check-mk-raw:latest
+    tmpfs:
+      - /opt/omd/sites/cmk/tmp:uid=1000,gid=1000
+    ulimits:
+      nofile: 1024
+    volumes:
+      - ./monitoring:/omd/sites
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8086:5000"
+    # restart: unless-stopped

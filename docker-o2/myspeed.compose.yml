@@ -1,0 +1,8 @@
+services:
+  instance:
+    image: germannewsmaker/myspeed
+    restart: unless-stopped
+    volumes:
+      - /root/volumes/speed:/myspeed/data
+    ports:
+      - 5216:5216

@@ -1,0 +1,18 @@
+services:
+  compass:
+    image: haohanyang/compass-web
+    container_name: compass-web-dev-compass
+    environment:
+      - CW_MONGO_URI=${CW_MONGO_URI}
+    depends_on:
+      - mongo
+    ports:
+      - 8080:8080
+    links:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: compass-web-dev-mongo
+    ports:
+      - 27017:27017
