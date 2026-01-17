@@ -43,7 +43,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "pg_isready --username=${POSTGRES_USER} && psql --username=${POSTGRES_USER} --list",
+          "pg_isready --username=$$POSTGRES_USER && psql --username=$$POSTGRES_USER --list",
         ]
       interval: 5s
       timeout: 10s
