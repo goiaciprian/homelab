@@ -1,21 +1,17 @@
 variable "proxmox_user" {
+  type        = string
   description = "terraform user declared on proxmox"
 }
 
 variable "proxmox_password" {
+  type        = string
   description = "terraform password"
 }
-
-variable "proxmox_instance" {}
-
-variable "node" {
-  default = "pve-node-o1"
+variable "proxmox_instance" {
+  type = string
 }
 
-variable "hostname" {}
 
-variable "password" {}
-
-variable "clone_source" {
-  default = "111"
+variable "test_lxc_password" {
+  type = string
 }

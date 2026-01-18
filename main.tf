@@ -1,7 +1,12 @@
-module "lxc" {
-  source = "./modules.tf/lxc"
+module "test-lxc" {
+  source = "./test"
 
-  hostname = var.hostname
-  node     = var.node
-  password = var.password
+  pve-node = local.nodes.pve-node-1
+  template = local.templates.small-docker
+
+  password = var.test_lxc_password
+}
+
+output "ip" {
+  value = module.test-lxc.ip
 }

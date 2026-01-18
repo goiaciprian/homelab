@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Wait to be ready
+      wait_for_connection:
+        timeout: 60
+
+    - name: apt update
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: apt upgrade
+      apt:
+        upgrade: true
