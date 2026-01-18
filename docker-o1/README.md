@@ -10,6 +10,7 @@
 - messym - personal project
 - stirtling pdf - using
 - postgres - db for different stuff
+- infiscal - tried it out
 
 ## TODO
 
